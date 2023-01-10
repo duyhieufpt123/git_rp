@@ -1,0 +1,33 @@
+
+Nếu có data rồi thì :
+go run . import -u update -d day -h hour -m min -s sec
+Chưa có data thì: 
+go run . import
+
+create extenstion "uuid-ossp" : tạo type chuẩn uuid mới trong postgres
+
+
+-- Lấy dữ liệu bảng
+SELECT DISTINCT 
+	project_id as "Project ID",
+    c.name as "Project Name",
+ 	user_name as "Username",
+   	--b.name as "File Commit",
+ 	message as "Message", 
+ 	line_added as "Number line addition", 
+ 	line_removed as "Number line deletions", 
+ 	commit_date as "Commit date"
+FROM 
+	--commits a Inner JOIN file_commits b on (a.id = b.commit_id )
+    commits a Inner JOIN projects c on (a.project_id = c.id)
+WHERE 
+	user_name='Hao Nguyen Vo Phong' AND commit_date >= '2022-12-22'
+ORDER BY commit_date DESC
+
+ 
+ 
+-- số lần commit của User
+-- SELECT user_name, count(user_name) AS "So lan commit"
+--   FROM commits
+--   WHERE user_name='Nguyen Minh Tri'
+--   GROUP BY user_name
